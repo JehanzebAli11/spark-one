@@ -1,0 +1,17 @@
+{
+  "name": "spark-one-10-eval-openrouter",
+  "cmd": [
+    "bash",
+    "-c",
+    "python3 -m spark_one.adapters.run --adapter openrouter --model ${OR_MODEL:-openai/gpt-4o-mini} --bank data/generated/bank --split test --limit 400 --max-usd ${MAX_USD:-3} --out runs/eval-only/openrouter/test_preds.jsonl && python3 -m spark_one.eval.harness --bank data/generated/bank --preds runs/eval-only/openrouter/test_preds.jsonl --out runs/eval-only/openrouter/eval --name \"${OR_MODEL:-openai/gpt-4o-mini} (eval only)\""
+  ],
+  "cwd": "../spark-one",
+  "priority": 60,
+  "timeout_min": 120,
+  "retries": 0,
+  "env": {
+    "OR_MODEL": "openai/gpt-4o-mini",
+    "MAX_USD": "3"
+  },
+  "report": "runs/eval-only/openrouter/eval/report.md"
+}

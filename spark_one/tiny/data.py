@@ -8,7 +8,6 @@ import numpy as np
 import torch
 
 from ..schema import Item
-from ..steps import item_steps
 from ..train.losses import StepBatch
 from .encode import encode_item, image_array
 from .tokenizer import PAD

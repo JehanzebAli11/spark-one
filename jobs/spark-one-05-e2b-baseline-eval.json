@@ -1,0 +1,22 @@
+{
+  "name": "spark-one-05-e2b-baseline-eval",
+  "cmd": [
+    "bash",
+    "scripts/eval_pipeline.sh",
+    "Gemma 4 E2B base (zero-shot)",
+    "runs/gemma-e2b-base/eval",
+    "python3",
+    "-m",
+    "spark_one.hf_predict",
+    "--model",
+    "google/gemma-4-E2B-it"
+  ],
+  "cwd": "../spark-one",
+  "priority": 25,
+  "timeout_min": 360,
+  "retries": 1,
+  "env": {
+    "EVAL_LIMIT": "3000"
+  },
+  "report": "runs/gemma-e2b-base/eval/report.md"
+}

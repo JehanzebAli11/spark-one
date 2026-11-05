@@ -17,7 +17,8 @@ from .steps import item_steps
 
 
 def collect(items_by_id, preds):
-    """-> {primitive: [(logp_vector, target_index)]} over base predictions with hard targets."""
+    """-> {primitive: [(logp_vector, target)]} over base predictions; target is an index or,
+    for Box steps, the exact two-hot distribution."""
     out: dict[str, list] = {}
     for r in preds:
         if r.get("variant", "base") != "base" or "logp" not in r:
@@ -26,9 +27,10 @@ def collect(items_by_id, preds):
         if it is None:
             continue
         for st, lp in zip(item_steps(it), r["logp"]):
-            if st.target is None:
-                continue
-            out.setdefault(it.primitive, []).append((np.asarray(lp, dtype=np.float64), st.target))
+            if it.primitive == "choice" and st.target is None:
+                continue  # none-fits items carry no calibration signal for the choice head
+            y = np.asarray(st.soft) if st.soft is not None else st.target
+            out.setdefault(it.primitive, []).append((np.asarray(lp, dtype=np.float64), y))
     return out
 
 
@@ -37,7 +39,8 @@ def nll_at(pairs, t):
     for lp, y in pairs:
         z = lp / t
         z = z - z.max()
-        s += -(z[y] - np.log(np.exp(z).sum()))
+        ls = z - np.log(np.exp(z).sum())
+        s += -(float(np.dot(y, ls)) if isinstance(y, np.ndarray) else ls[y])
     return s / len(pairs)
 
 

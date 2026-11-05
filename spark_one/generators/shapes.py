@@ -7,8 +7,7 @@ import random
 
 from PIL import Image, ImageDraw
 
-from .common import (COLOURS, SHAPES, box_frac, draw_shape, number_options, shape_area,
-                     shape_bbox)
+from .common import COLOURS, SHAPES, box_frac, draw_shape, number_options, shape_area, shape_bbox
 
 VERSION = "1"
 W = H = 256

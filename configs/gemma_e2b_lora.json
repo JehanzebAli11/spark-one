@@ -1,0 +1,17 @@
+{
+  "_doc": "Gemma 4 E2B student, LoRA, KL to Gemma 4 31B teacher soft labels + log loss on exact labels. Run on the Spark.",
+  "base_model": "google/gemma-4-E2B-it",
+  "bank": "data/generated/bank",
+  "teacher": "runs/teacher/train.jsonl",
+  "run_dir": "runs/gemma-e2b-lora-v1",
+  "steps": 3000,
+  "grad_accum": 16,
+  "lr": 0.0002,
+  "warmup": 60,
+  "alpha": 0.5,
+  "log_every": 10,
+  "ckpt_every": 200,
+  "seed": 0,
+  "gradient_checkpointing": false,
+  "lora": {"r": 16, "alpha": 32, "dropout": 0.05}
+}

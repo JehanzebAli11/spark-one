@@ -15,7 +15,6 @@ import shutil
 import time
 from pathlib import Path
 
-import numpy as np
 import torch
 
 from ..schema import load_items, read_jsonl

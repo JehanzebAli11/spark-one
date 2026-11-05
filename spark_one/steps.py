@@ -29,7 +29,7 @@ class Step:
     name: str
     labels: tuple[str, ...]
     target: int | None  # index of the correct label (None: no single correct label)
-    soft: list[float] | None = None  # code-derived target distribution when target is None
+    soft: list[float] | None = None  # code-derived target distribution; trains instead of target when set
 
 
 def bin_index(v: float, k: int = BOX_BINS) -> int:
@@ -38,6 +38,19 @@ def bin_index(v: float, k: int = BOX_BINS) -> int:
 
 def bin_center(i: int, k: int = BOX_BINS) -> float:
     return (i + 0.5) / k
+
+
+def two_hot(v: float, k: int = BOX_BINS) -> list[float]:
+    """Exact soft target: mass split between the two nearest bin centres so that the
+    expected coordinate sum_i p_i * bin_center(i) equals v (inside the representable range)."""
+    x = min(max(v * k - 0.5, 0.0), k - 1.0)
+    i0 = int(math.floor(x))
+    w = x - i0
+    out = [0.0] * k
+    out[i0] += 1 - w
+    if w > 0:
+        out[i0 + 1] += w
+    return out
 
 
 def choice_labels(n: int) -> tuple[str, ...]:
@@ -59,7 +72,11 @@ def item_steps(item: Item, k: int = BOX_BINS) -> list[Step]:
     if p == "box":
         if k != BOX_BINS:
             raise ValueError("BIN_LABELS are defined for 32 bins")
-        return [Step(f"box_{key}", BIN_LABELS, bin_index(item.answer[key], k)) for key in BOX_KEYS]
+        steps = []
+        for key in BOX_KEYS:
+            soft = two_hot(item.answer[key], k)
+            steps.append(Step(f"box_{key}", BIN_LABELS, max(range(k), key=lambda i: soft[i]), soft))
+        return steps
     raise ValueError(p)
 
 

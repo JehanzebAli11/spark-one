@@ -1,0 +1,19 @@
+{
+  "name": "spark-one-06-e2b-lora-train",
+  "cmd": [
+    "python3",
+    "-m",
+    "spark_one.train.lora",
+    "--config",
+    "configs/gemma_e2b_lora.json"
+  ],
+  "cwd": "../spark-one",
+  "priority": 30,
+  "timeout_min": 600,
+  "retries": 3,
+  "resume_dir": "runs/gemma-e2b-lora-v1",
+  "env": {
+    "TOKENIZERS_PARALLELISM": "false",
+    "PYTORCH_CUDA_ALLOC_CONF": "expandable_segments:True"
+  }
+}

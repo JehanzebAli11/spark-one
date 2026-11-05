@@ -3,7 +3,6 @@ prefix (image + state) is computed once and reused across questions."""
 
 from __future__ import annotations
 
-import math
 from dataclasses import asdict, dataclass
 
 import torch

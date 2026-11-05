@@ -1,0 +1,23 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          pip install --index-url https://download.pytorch.org/whl/cpu torch
+          pip install -e '.[dev]' transformers peft safetensors
+      - name: Lint
+        run: ruff check .
+      - name: Test
+        run: pytest -q
+      - name: Generator smoke build
+        run: python -m spark_one.build --out /tmp/bank --n 5 --seed 1

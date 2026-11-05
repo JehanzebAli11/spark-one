@@ -1,0 +1,29 @@
+{
+  "name": "spark-one-03-teacher-score-train",
+  "cmd": [
+    "python3",
+    "-m",
+    "spark_one.teacher.score",
+    "--bank",
+    "data/generated/bank",
+    "--split",
+    "train",
+    "--primitives",
+    "choice",
+    "noul",
+    "score",
+    "--out",
+    "runs/teacher/train.jsonl",
+    "--model",
+    "google/gemma-4-31B-it",
+    "--concurrency",
+    "32"
+  ],
+  "cwd": "../spark-one",
+  "priority": 20,
+  "timeout_min": 720,
+  "retries": 3,
+  "env": {
+    "TEACHER_BASE_URL": "http://localhost:8000/v1"
+  }
+}

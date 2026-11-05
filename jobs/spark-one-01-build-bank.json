@@ -1,0 +1,12 @@
+{
+  "name": "spark-one-01-build-bank",
+  "cmd": [
+    "bash",
+    "-c",
+    "python3 -m spark_one.build --out data/generated/bank --n 1500 --seed 1 --sample 60 && python3 -m spark_one.build --out data/generated/illusions --n 300 --seed 7 --illusions --sample 20"
+  ],
+  "cwd": "../spark-one",
+  "priority": 11,
+  "timeout_min": 60,
+  "retries": 1
+}

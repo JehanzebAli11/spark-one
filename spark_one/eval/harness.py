@@ -116,7 +116,6 @@ def order_consistency(items, preds, temps):
     for r in preds:
         if not str(r.get("variant", "")).startswith("perm") or r["base_id"] not in base:
             continue
-        it = items[r["base_id"]]
         t = temps.get("choice", {}).get("temperature", 1.0) if temps else 1.0
         pb = _probs(base[r["base_id"]], 0, t)
         pp = _probs(r, 0, t)

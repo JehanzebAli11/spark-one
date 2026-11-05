@@ -19,8 +19,8 @@ class StepBatch:
     pos: torch.Tensor  # [S] position whose logits predict the label
     label_ids: torch.Tensor  # [S, L] token ids (pad 0)
     label_mask: torch.Tensor  # [S, L] bool
-    target: torch.Tensor  # [S] index of correct label, -1 when using soft target
-    soft: torch.Tensor  # [S, L] code-derived soft target (used when target == -1)
+    target: torch.Tensor  # [S] index of correct label (-1 when there is none)
+    soft: torch.Tensor  # [S, L] code-derived soft target; used instead of target when its row is non-zero
     teacher: torch.Tensor  # [S, L] teacher probs (zeros when absent)
     has_teacher: torch.Tensor  # [S] bool
     primitive: list[str]
@@ -36,7 +36,7 @@ def step_logits(logits: torch.Tensor, sb: StepBatch) -> torch.Tensor:
 def answer_loss(sub: torch.Tensor, sb: StepBatch, alpha: float, kd_temp: float = 1.0):
     logp = F.log_softmax(sub, dim=-1)
     safe_logp = logp.masked_fill(~sb.label_mask, 0.0)
-    hard = sb.target >= 0
+    hard = (sb.target >= 0) & (sb.soft.sum(1) == 0)
     tgt = torch.where(hard, sb.target, torch.zeros_like(sb.target))
     ce_hard = -safe_logp.gather(1, tgt[:, None]).squeeze(1)
     ce_soft = -(sb.soft * safe_logp).sum(1)

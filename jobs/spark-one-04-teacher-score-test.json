@@ -1,0 +1,13 @@
+{
+  "name": "spark-one-04-teacher-score-test",
+  "cmd": [
+    "bash",
+    "-c",
+    "python3 -m spark_one.teacher.score --bank data/generated/bank --split val --primitives choice noul score --out runs/teacher/val.jsonl --model google/gemma-4-31B-it && python3 -m spark_one.teacher.score --bank data/generated/bank --split test --primitives choice noul score --out runs/teacher/test.jsonl --model google/gemma-4-31B-it && python3 -m spark_one.teacher.to_preds runs/teacher/val.jsonl runs/teacher/val_preds.jsonl && python3 -m spark_one.teacher.to_preds runs/teacher/test.jsonl runs/teacher/test_preds.jsonl && python3 -m spark_one.calibrate --bank data/generated/bank --preds runs/teacher/val_preds.jsonl --out runs/teacher/temps.json && python3 -m spark_one.eval.harness --bank data/generated/bank --preds runs/teacher/test_preds.jsonl --temps runs/teacher/temps.json --out runs/teacher/eval --name 'Gemma 4 31B teacher'"
+  ],
+  "cwd": "../spark-one",
+  "priority": 21,
+  "timeout_min": 240,
+  "retries": 2,
+  "report": "runs/teacher/eval/report.md"
+}

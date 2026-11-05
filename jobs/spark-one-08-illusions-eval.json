@@ -1,0 +1,13 @@
+{
+  "name": "spark-one-08-illusions-eval",
+  "cmd": [
+    "bash",
+    "-c",
+    "BANK=data/generated/illusions python3 -m spark_one.hf_predict --model google/gemma-4-E2B-it --adapter runs/gemma-e2b-lora-v1/final_adapter --bank data/generated/illusions --split test --out runs/gemma-e2b-lora-v1/illusions/test_preds.jsonl --no-variants && python3 -m spark_one.eval.harness --bank data/generated/illusions --preds runs/gemma-e2b-lora-v1/illusions/test_preds.jsonl --temps runs/gemma-e2b-lora-v1/eval/temps.json --out runs/gemma-e2b-lora-v1/illusions --name 'Spark-1 on optical illusions'"
+  ],
+  "cwd": "../spark-one",
+  "priority": 32,
+  "timeout_min": 120,
+  "retries": 1,
+  "report": "runs/gemma-e2b-lora-v1/illusions/report.md"
+}

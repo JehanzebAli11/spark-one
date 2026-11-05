@@ -1,0 +1,11 @@
+{
+  "name": "spark-one-00-check",
+  "cmd": [
+    "python3",
+    "scripts/check_spark.py"
+  ],
+  "cwd": "../spark-one",
+  "priority": 10,
+  "timeout_min": 5,
+  "retries": 0
+}

@@ -1,0 +1,20 @@
+{
+  "name": "spark-one-09-serve-bench",
+  "cmd": [
+    "python3",
+    "scripts/bench_server.py",
+    "--backend",
+    "hf",
+    "--model",
+    "google/gemma-4-E2B-it",
+    "--adapter",
+    "runs/gemma-e2b-lora-v1/final_adapter",
+    "--out",
+    "runs/gemma-e2b-lora-v1/serve_bench.md"
+  ],
+  "cwd": "../spark-one",
+  "priority": 33,
+  "timeout_min": 30,
+  "retries": 0,
+  "report": "runs/gemma-e2b-lora-v1/serve_bench.md"
+}

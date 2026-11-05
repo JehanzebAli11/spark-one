@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spark-one"
+version = "0.1.0"
+description = "Spark-1: an open, calibrated System One model (Choice, Noul, Score, Box with probabilities)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+dependencies = ["numpy", "pillow>=10.1", "httpx", "fastapi", "pydantic>=2", "matplotlib"]
+
+[project.optional-dependencies]
+torch = ["torch>=2.3"]
+hf = ["torch>=2.3", "transformers>=5.5", "peft>=0.17", "accelerate", "safetensors"]
+serve = ["uvicorn"]
+dev = ["pytest", "ruff", "uvicorn", "imageio"]
+
+[tool.setuptools.packages.find]
+include = ["spark_one*"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501", "E701", "E702", "E731", "E741", "E402"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

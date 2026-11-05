@@ -1,0 +1,17 @@
+{
+  "name": "spark-one-02-smoke-gemma",
+  "cmd": [
+    "python3",
+    "scripts/smoke_gemma.py",
+    "--model",
+    "google/gemma-4-E2B-it",
+    "--n",
+    "6",
+    "--out",
+    "runs/smoke_gemma_e2b_gpu.json"
+  ],
+  "cwd": "../spark-one",
+  "priority": 12,
+  "timeout_min": 30,
+  "retries": 0
+}
