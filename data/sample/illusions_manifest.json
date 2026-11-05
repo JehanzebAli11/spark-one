@@ -1,6 +1,6 @@
 {
   "spark_one_version": "0.1.0",
-  "created_unix": 1793862564,
+  "created_unix": 1793863889,
   "seed": 7,
   "n_per_task_per_lang": 300,
   "generators": {
@@ -19,28 +19,46 @@
         "ur-roman"
       ],
       "n_items": 600
+    },
+    "ponzo": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 600
+    },
+    "delboeuf": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 600
     }
   },
   "pillow": "12.3.0",
   "python": "3.13.18",
-  "items_sha256": "2053c3ec6c38b208df84234fc26814e72abb8c2d1cf2a2c98e02881641c15c7b",
-  "n_items": 1200,
+  "items_sha256": "75508b554dd5d47369133def0f271d17adf03bb8638ed6fb942463da2143e9f0",
+  "n_items": 2400,
   "by_split": {
-    "test": 1200
+    "test": 2400
   },
   "by_primitive": {
-    "choice": 1200
+    "choice": 2400
   },
   "by_lang": {
-    "en": 600,
-    "ur-roman": 600
+    "en": 1200,
+    "ur-roman": 1200
   },
   "by_modality": {
-    "image": 1200
+    "image": 2400
   },
   "by_task": {
+    "delboeuf.larger": 600,
     "ebbinghaus.larger": 600,
-    "muller_lyer.longer": 600
+    "muller_lyer.longer": 600,
+    "ponzo.longer": 600
   },
   "none_fits": 0
 }

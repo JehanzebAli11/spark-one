@@ -1,0 +1,15 @@
+# Real Gemma 4 E2B LoRA smoke on CPU (bf16, 2 threads), 2026-11-05
+# config: /tmp lora_cpu.json = steps 3, grad_accum 2, r 8; run 2 steps, 'crash', resume from checkpoint-2
+train items 400, teacher labels 0, trainable params 12,079,104
+{'step': 1, 'loss': 0.0, 'ce': 0.0, 'kl': 0.0, 'lr': 0.0002, 'elapsed_s': 38.7}
+{'step': 2, 'loss': 0.0001, 'ce': 0.0001, 'kl': 0.0, 'lr': 0.0002, 'elapsed_s': 204.5}
+resumed from /tmp/claude-0/lora_cpu/checkpoint-2 at step 2
+train items 400, teacher labels 0, trainable params 12,079,104
+{'step': 3, 'loss': 10.6917, 'ce': 10.6917, 'kl': 0.0, 'lr': 0.0001, 'elapsed_s': 165.6}
+done: /tmp/claude-0/lora_cpu/final_adapter
+{"step": 1, "loss": 0.0, "ce": 0.0, "kl": 0.0, "lr": 0.0002, "elapsed_s": 38.7}
+{"step": 2, "loss": 0.0001, "ce": 0.0001, "kl": 0.0, "lr": 0.0002, "elapsed_s": 204.5}
+{"step": 3, "loss": 10.6917, "ce": 10.6917, "kl": 0.0, "lr": 0.0001, "elapsed_s": 165.6}
+README.md
+adapter_config.json
+adapter_model.safetensors

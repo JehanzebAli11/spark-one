@@ -6,6 +6,8 @@ __pycache__/
 data/generated/
 runs/*
 !runs/tiny/
+!runs/smoke/
+!runs/eval-only/
 runs/tiny/**/checkpoint-*/
 runs/tiny/**/*.pt
 runs/tiny/**/*preds*.jsonl

@@ -92,7 +92,7 @@ def test_illusions_have_exact_truth(tmp_path):
         for it in its:
             p = it.provenance["params"]
             keys = list(it.criteria)
-            vals = (p.get("len_top"), p.get("len_bottom")) if "len_top" in p else (p["r_left"], p["r_right"])
+            vals = next((p[a], p[b]) for a, b in (("len_top", "len_bottom"), ("len_upper", "len_lower"), ("r_left", "r_right")) if a in p)
             if vals[0] == vals[1]:
                 assert p["truth"] == "equal"
             assert p["truth"] in ("equal", "a", "b")

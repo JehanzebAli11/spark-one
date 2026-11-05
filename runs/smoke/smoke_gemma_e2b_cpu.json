@@ -1,0 +1,302 @@
+[
+ {
+  "id": "day_after-ur-roman-001220-q",
+  "primitive": "choice",
+  "modality": "text",
+  "answer": "Peer",
+  "target_label": "A",
+  "top_tokens_at_answer": [
+   [
+    "B",
+    0.9885
+   ],
+   [
+    "A",
+    0.0073
+   ],
+   [
+    "C",
+    0.0021
+   ],
+   [
+    "D",
+    0.0007
+   ],
+   [
+    "```",
+    0.0006
+   ],
+   [
+    "<|channel>",
+    0.0004
+   ],
+   [
+    "<eos>",
+    0.0001
+   ],
+   [
+    "<turn|>",
+    0.0
+   ]
+  ],
+  "label_mass_first_step": 0.9986,
+  "pred_label": "B",
+  "max_abs_diff_cached_vs_full_step0": 0.124,
+  "seconds_full_forward": 7.5,
+  "seconds_prefix_plus_answer": 9.8,
+  "seconds_answer_with_cached_prefix": 6.2,
+  "n_prefix_tokens": 34
+ },
+ {
+  "id": "shapes-ur-roman-000415-leftof",
+  "primitive": "noul",
+  "modality": "image",
+  "answer": true,
+  "target_label": "Yes",
+  "top_tokens_at_answer": [
+   [
+    "No",
+    0.9989
+   ],
+   [
+    "no",
+    0.0009
+   ],
+   [
+    "NO",
+    0.0001
+   ],
+   [
+    "Yes",
+    0.0001
+   ],
+   [
+    "<|channel>",
+    0.0
+   ],
+   [
+    "<turn|>",
+    0.0
+   ],
+   [
+    "<eos>",
+    0.0
+   ],
+   [
+    "Is",
+    0.0
+   ]
+  ],
+  "label_mass_first_step": 0.9989,
+  "pred_label": "No",
+  "max_abs_diff_cached_vs_full_step0": 0.375,
+  "seconds_full_forward": 45.8,
+  "seconds_prefix_plus_answer": 60.0,
+  "seconds_answer_with_cached_prefix": 4.1,
+  "n_prefix_tokens": 292
+ },
+ {
+  "id": "shapes-en-001079-colour",
+  "primitive": "choice",
+  "modality": "image",
+  "answer": "blue",
+  "target_label": "A",
+  "top_tokens_at_answer": [
+   [
+    "A",
+    1.0
+   ],
+   [
+    "<turn|>",
+    0.0
+   ],
+   [
+    "<|channel>",
+    0.0
+   ],
+   [
+    "B",
+    0.0
+   ],
+   [
+    "```",
+    0.0
+   ],
+   [
+    " A",
+    0.0
+   ],
+   [
+    "<bos>",
+    0.0
+   ],
+   [
+    "<|tool_response>",
+    0.0
+   ]
+  ],
+  "label_mass_first_step": 1.0,
+  "pred_label": "A",
+  "max_abs_diff_cached_vs_full_step0": 0.6875,
+  "seconds_full_forward": 50.4,
+  "seconds_prefix_plus_answer": 55.9,
+  "seconds_answer_with_cached_prefix": 5.3,
+  "n_prefix_tokens": 292
+ },
+ {
+  "id": "stock_score-en-000214-q",
+  "primitive": "score",
+  "modality": "text",
+  "answer": 2,
+  "target_label": "2",
+  "top_tokens_at_answer": [
+   [
+    "2",
+    0.9999
+   ],
+   [
+    "3",
+    0.0001
+   ],
+   [
+    "1",
+    0.0
+   ],
+   [
+    "<|channel>",
+    0.0
+   ],
+   [
+    "0",
+    0.0
+   ],
+   [
+    "```",
+    0.0
+   ],
+   [
+    "Level",
+    0.0
+   ],
+   [
+    "level",
+    0.0
+   ]
+  ],
+  "label_mass_first_step": 1.0,
+  "pred_label": "2",
+  "max_abs_diff_cached_vs_full_step0": 0.1875,
+  "seconds_full_forward": 9.7,
+  "seconds_prefix_plus_answer": 12.3,
+  "seconds_answer_with_cached_prefix": 8.0,
+  "n_prefix_tokens": 37
+ },
+ {
+  "id": "settings-en-001159-box_toggle",
+  "primitive": "box",
+  "modality": "image",
+  "answer": {
+   "top": 0.31333333333333335,
+   "left": 0.7888888888888889,
+   "bottom": 0.36,
+   "right": 0.9333333333333333
+  },
+  "target_label": "K",
+  "top_tokens_at_answer": [
+   [
+    "3",
+    0.7045
+   ],
+   [
+    "2",
+    0.2937
+   ],
+   [
+    "1",
+    0.0014
+   ],
+   [
+    "4",
+    0.0002
+   ],
+   [
+    "5",
+    0.0001
+   ],
+   [
+    "6",
+    0.0
+   ],
+   [
+    "0",
+    0.0
+   ],
+   [
+    "8",
+    0.0
+   ]
+  ],
+  "label_mass_first_step": 0.0,
+  "pred_label": "c",
+  "max_abs_diff_cached_vs_full_step0": 0.1434,
+  "seconds_full_forward": 50.2,
+  "seconds_prefix_plus_answer": 56.8,
+  "seconds_answer_with_cached_prefix": 9.7,
+  "n_prefix_tokens": 290,
+  "pred_box": {
+   "top": 0.7117968135476713,
+   "left": 0.470234909916559,
+   "bottom": 0.9232510635912394,
+   "right": 0.9784736799453801
+  },
+  "iou": 0.0
+ },
+ {
+  "id": "compare_decimals-en-000693-q",
+  "primitive": "noul",
+  "modality": "text",
+  "answer": true,
+  "target_label": "Yes",
+  "top_tokens_at_answer": [
+   [
+    "Yes",
+    1.0
+   ],
+   [
+    "No",
+    0.0
+   ],
+   [
+    "yes",
+    0.0
+   ],
+   [
+    "<|channel>",
+    0.0
+   ],
+   [
+    "[",
+    0.0
+   ],
+   [
+    "YES",
+    0.0
+   ],
+   [
+    "\n",
+    0.0
+   ],
+   [
+    "N",
+    0.0
+   ]
+  ],
+  "label_mass_first_step": 1.0,
+  "pred_label": "Yes",
+  "max_abs_diff_cached_vs_full_step0": 0.125,
+  "seconds_full_forward": 6.7,
+  "seconds_prefix_plus_answer": 8.6,
+  "seconds_answer_with_cached_prefix": 3.6,
+  "n_prefix_tokens": 46
+ }
+]

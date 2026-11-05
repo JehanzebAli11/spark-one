@@ -11,9 +11,11 @@ Living status file, updated after every milestone. Last update: 2026-11-05, clou
 |---|---|
 | Question-bank framework: schema, option shuffling, none-fits + companion Noul, scene-grouped 80/10/10 splits, provenance on every item | `spark_one/bank.py`, `tests/test_bank.py` |
 | 13 procedural generators (8 text tasks EN + Roman Urdu, shape scenes, chat / settings / cart screenshots, bar charts) + 2 illusion generators; exact labels and Box targets | `spark_one/generators/`; sample rows in `data/sample/` |
-| Full bank generated: **91,975 items** (73,757 train / 8,966 val / 9,252 test; 41,754 choice, 26,240 noul, 9,000 score, 14,981 box; 45,955 EN / 46,020 Roman Urdu; 61,920 image items; 4,536 none-fits) and **1,200-item illusion test set** | `data/sample/bank_manifest.json`, `data/sample/illusions_manifest.json` (images are not committed; rebuild is deterministic, ~3 min) |
+| Full bank generated: **91,975 items** (73,757 train / 8,966 val / 9,252 test; 41,754 choice, 26,240 noul, 9,000 score, 14,981 box; 45,955 EN / 46,020 Roman Urdu; 61,920 image items; 4,536 none-fits) and **2,400-item illusion test set** (Müller-Lyer, Ebbinghaus, Ponzo, Delboeuf) | `data/sample/bank_manifest.json`, `data/sample/illusions_manifest.json` (images are not committed; rebuild is deterministic, ~3 min) |
 | Tests: 28 passing (`pytest -q`), ruff clean, CI workflow | `tests/`, `.github/workflows/ci.yml` |
 | Real Gemma 4 E2B (`google/gemma-4-E2B-it`, bf16 on CPU) through our HF path: chat template, image processor, prefix-cache backend, all 54 answer labels are single tokens, first-token mass on labels ≈ 0.999 (no thinking token with `enable_thinking=False`) | `runs/smoke_gemma_e2b_cpu.json` |
+| Real Gemma 4 E2B LoRA trainer smoke on CPU: LoRA on 12.1M params, 2 steps, simulated crash, resume from `checkpoint-2`, final adapter saved | `runs/smoke/lora_e2b_cpu.log` |
+| Eval-only: `openai/gpt-4o-mini` via OpenRouter on 300 test items + variants, $0.69 of a $1 cap. Core accuracy 0.764, ECE 0.210 (uncalibrated), option-order agreement 0.690, negation agreement 0.784; Box unsupported (OpenAI ignores assistant prefill, 0 IoU) | `runs/eval-only/gpt-4o-mini/eval/report.md`, `test_preds.cost.json` |
 | Tiny CPU loop (see "Tiny loop" below) | `runs/tiny/RESULTS.md` (pending until the loop finishes) |
 
 ### Done, tested only against fakes / tiny stand-ins
@@ -107,8 +109,14 @@ update README results from the report files, and push the adapter to a **private
    accumulation 16 and batch 1.
 4. **ARM64 wheels.** torch/torchvision CUDA wheels for aarch64; fall back to the NGC container.
 5. **Throughput.** The estimates above are guesses; measure in step 2/3 and set `--limit`s.
-6. **Box distillation.** Teacher Box steps need `max_logprobs >= 32`; the default plan trains
-   Box on the exact two-hot target only.
+6. **Box vocabulary.** Measured on CPU: zero-shot E2B puts ~0 first-token mass on the bin
+   letters after `top=` (it wants to write digits; top tokens "3", "2"), so base-model Box
+   numbers in step 5 are meaningless and the LoRA must learn the bin labels. If Box IoU stays
+   near 0 after training, check `bin_step_accuracy` in the report and consider more Box
+   steps/weight. Teacher Box distillation would need `max_logprobs >= 32`; the default plan
+   trains Box on the exact two-hot target only.
+8. **Prefix cache speed-up** measured on CPU (E2B bf16, image item, 290 prefix tokens): full
+   forward 50 s vs 9.7 s for a question with the prefix cached (`runs/smoke/`).
 7. **Image resolution.** Screenshots are 360×600 and charts 400×300; the Gemma processor
    resizes them. If chat/cart text is unreadable to the model, render at 2× (generator param).
 
@@ -142,8 +150,9 @@ Status: running (teacher training). Results land in `runs/tiny/RESULTS.md`.
 - [x] Optical-illusion eval set with exact ground truth (Müller-Lyer, Ebbinghaus; equal cases and truth-against-illusion cases)
 - [x] Demo GIF of the generators (`docs/demo_generators.gif`)
 - [ ] Demo GIF of the tiny student answering (after the loop)
-- [ ] OpenRouter eval of one cheap model on a small test sample with a hard cap (eval only)
-- [ ] More illusions (Ponzo, Delboeuf, checker-shadow luminance) and line-chart / pie-chart generators
+- [x] OpenRouter eval of one cheap model on a small test sample with a hard cap (eval only): gpt-4o-mini, $0.69
+- [x] Ponzo and Delboeuf illusions (illusion set now 2,400 items, 4 types)
+- [ ] More illusions (checker-shadow luminance, Zöllner) and line-chart / pie-chart generators (append-only: existing item ids stay stable)
 - [ ] Generator param for 2× render resolution
 - [ ] Hard-negative Box items (two similar targets) and multi-image states
 - [ ] Per-task temperature (vs per-primitive) and a comparison in the harness
