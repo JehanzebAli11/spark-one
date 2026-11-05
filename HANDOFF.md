@@ -13,7 +13,7 @@ Living status file, updated after every milestone. Last update: 2026-11-05, clou
 | 15 procedural generators (8 text tasks EN + Roman Urdu, shape scenes, chat / settings / cart screenshots, bar, line and pie charts) + 4 illusion generators; exact labels and Box targets; reproducible across processes (tested with two `PYTHONHASHSEED`s) | `spark_one/generators/`; sample rows + images in `data/sample/` |
 | Full bank v2 generated: **110,072 items** (88,260 train / 10,796 val / 11,016 test; 46,831 choice, 33,260 noul, 9,000 score, 20,981 box; 54,983 EN / 55,089 Roman Urdu; 80,017 image items; 5,179 none-fits) and **2,400-item illusion test set** (Müller-Lyer, Ebbinghaus, Ponzo, Delboeuf) | `data/sample/bank_manifest.json`, `data/sample/illusions_manifest.json` (images not committed; rebuild ~4 min). The tiny runs used bank v1 (13 generators, 91,975 items, `data/sample/bank_manifest_v1_tiny_runs.json`); v2 only appends line/pie charts and makes `date_order` reproducible (v1 `date_order` depended on PYTHONHASHSEED; its labels were correct). |
 | Tests: 31 passing (`pytest -q`), ruff clean, CI workflow | `tests/`, `.github/workflows/ci.yml` |
-| Real Gemma 4 E2B (`google/gemma-4-E2B-it`, bf16 on CPU) through our HF path: chat template, image processor, prefix-cache backend, all 54 answer labels are single tokens, first-token mass on labels ≈ 0.999 (no thinking token with `enable_thinking=False`) | `runs/smoke_gemma_e2b_cpu.json` |
+| Real Gemma 4 E2B (`google/gemma-4-E2B-it`, bf16 on CPU) through our HF path: chat template, image processor, prefix-cache backend, all 54 answer labels are single tokens, first-token mass on labels ≈ 0.999 (no thinking token with `enable_thinking=False`) | `runs/smoke/smoke_gemma_e2b_cpu.json` |
 | Real Gemma 4 E2B LoRA trainer smoke on CPU: LoRA on 12.1M params, 2 steps, simulated crash, resume from `checkpoint-2`, final adapter saved | `runs/smoke/lora_e2b_cpu.log` |
 | Zero-shot Gemma 4 E2B baseline on CPU (bf16), 150 random test items (choice/noul/score) + order and negation variants, graded on 133 items (`date_order` excluded, see bank v2 note): accuracy 0.564, ECE 0.399 (badly overconfident), option-order agreement 0.541, negation agreement 0.160, mean top-1 0.986 on none-fits items. Temperatures fitted on 95 val items (choice 5.4, noul 12.0, score 7.3) cut ECE to 0.129 and log loss from 3.51 to 0.95. Small sample: treat as indicative. | `runs/gemma-e2b-base-cpu/eval/` (report + reliability figures), `temps.json` |
 | Eval-only: `openai/gpt-4o-mini` via OpenRouter on 300 test items + variants, $0.69 of a $1 cap. Core accuracy 0.764, ECE 0.210 (uncalibrated), option-order agreement 0.690, negation agreement 0.784; Box unsupported (OpenAI ignores assistant prefill, 0 IoU) | `runs/eval-only/gpt-4o-mini/eval/report.md`, `test_preds.cost.json` |
@@ -24,7 +24,7 @@ Living status file, updated after every milestone. Last update: 2026-11-05, clou
 | what | how it was tested |
 |---|---|
 | Teacher-score job (`spark_one/teacher/score.py`): vLLM chat completions, `top_logprobs`, variant pooling (" A", "**A"), coverage, retries, resume, Box steps via `continue_final_message` | fake vLLM server with canned distributions and simulated 503s (`tests/test_teacher.py`); tiny teacher served through the same fake server in the tiny loop |
-| Gemma LoRA trainer (`spark_one/train/lora.py`): KL + log loss at answer tokens, checkpoint every N steps, exact resume via `LAB_RESUME_FROM` | tiny random Llama + char tokenizer (`tests/test_lora.py`); resume reproduces uninterrupted weights exactly. **Never run on Gemma weights or a GPU.** |
+| Gemma LoRA trainer (`spark_one/train/lora.py`): KL + log loss at answer tokens, checkpoint every N steps, exact resume via `LAB_RESUME_FROM` | tiny random Llama + char tokenizer (`tests/test_lora.py`); resume reproduces uninterrupted weights exactly. On real Gemma 4 E2B only 3 CPU steps (see above). **Never run on a GPU or at scale.** |
 | HF prediction (`spark_one/hf_predict.py`) and HF server backend | tiny Llama (cache == full forward, 1e-4) and 4–6 real-E2B items on CPU |
 | Server `POST /v1/systemone` | tiny backend, all 4 primitives, prefix cache hit/miss, errors (`tests/test_server.py`) |
 | Jev and OpenRouter adapters + cost cap | `httpx.MockTransport` (`tests/test_adapters.py`). No real Jev call (no key). |
@@ -152,6 +152,11 @@ Bug found and fixed on the way: the fake server first spread the tiny teacher's 
 whole answer vocabulary, so all soft labels had coverage < 0.5 and were silently dropped; a
 regression test now guards it. The same failure mode (low coverage → `ok: false` → no KL
 signal) is what to watch with the real 31B teacher: check the `ok` rate before training.
+
+Long-run probe (stopped): the same 1.0M student with 12k steps was stopped at step 3,000
+(`configs/tiny_student_long.json`, `runs/tiny/student_long/train_log.jsonl`); a probe on 2,000
+val items at step 3,000 still had choice accuracy 0.270, so CPU time went to the real E2B
+baseline instead. Not worth resuming on the Spark: train the Gemma student.
 
 ## Stretch list (kept here; work down it after the core)
 
