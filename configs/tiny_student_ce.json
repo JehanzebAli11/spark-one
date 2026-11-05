@@ -9,7 +9,7 @@
   "alpha": 0.0,
   "log_every": 50,
   "ckpt_every": 250,
-  "threads": 3,
+  "threads": 2,
   "seed": 2,
   "model": {
     "d_model": 128,
