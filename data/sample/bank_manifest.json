@@ -1,0 +1,183 @@
+{
+  "spark_one_version": "0.1.0",
+  "created_unix": 1793862560,
+  "seed": 1,
+  "n_per_task_per_lang": 1500,
+  "generators": {
+    "count_letter": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 3733
+    },
+    "compare_people": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 5424
+    },
+    "day_after": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 3726
+    },
+    "count_list": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 3733
+    },
+    "stock_score": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 3000
+    },
+    "compare_decimals": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 3000
+    },
+    "date_order": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 3688
+    },
+    "arithmetic": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 3751
+    },
+    "chat": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 13053
+    },
+    "settings": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 12660
+    },
+    "cart": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 6604
+    },
+    "bar_chart": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 11648
+    },
+    "shapes": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 17955
+    }
+  },
+  "pillow": "12.3.0",
+  "python": "3.13.18",
+  "items_sha256": "a12e3ddeb6d27fb7e7ab72255bce615fe3ec103f8477e4ca8bb3baecd757dee4",
+  "n_items": 91975,
+  "by_split": {
+    "val": 8966,
+    "train": 73757,
+    "test": 9252
+  },
+  "by_primitive": {
+    "choice": 41754,
+    "noul": 26240,
+    "score": 9000,
+    "box": 14981
+  },
+  "by_lang": {
+    "en": 45955,
+    "ur-roman": 46020
+  },
+  "by_modality": {
+    "text": 30055,
+    "image": 61920
+  },
+  "by_task": {
+    "arithmetic.q": 3000,
+    "arithmetic.q_anyfits": 751,
+    "bar_chart.box": 3000,
+    "bar_chart.compare": 2988,
+    "bar_chart.level": 3000,
+    "bar_chart.max": 2128,
+    "bar_chart.max_anyfits": 532,
+    "cart.priciest": 2275,
+    "cart.priciest_anyfits": 559,
+    "cart.total": 3000,
+    "cart.total_anyfits": 770,
+    "chat.box": 2985,
+    "chat.count": 3000,
+    "chat.count_anyfits": 733,
+    "chat.last": 3000,
+    "chat.last_anyfits": 335,
+    "chat.mention": 3000,
+    "compare_decimals.q": 3000,
+    "compare_people.more": 3000,
+    "compare_people.noul": 2424,
+    "count_letter.q": 3000,
+    "count_letter.q_anyfits": 733,
+    "count_list.q": 3000,
+    "count_list.q_anyfits": 733,
+    "date_order.q": 3000,
+    "date_order.q_anyfits": 688,
+    "day_after.q": 3000,
+    "day_after.q_anyfits": 726,
+    "settings.box_button": 3000,
+    "settings.box_toggle": 3000,
+    "settings.count_on": 3000,
+    "settings.count_on_anyfits": 660,
+    "settings.toggle": 3000,
+    "shapes.box": 2996,
+    "shapes.colour": 1029,
+    "shapes.colour_anyfits": 228,
+    "shapes.count": 3000,
+    "shapes.count_anyfits": 696,
+    "shapes.largest": 1681,
+    "shapes.largest_anyfits": 425,
+    "shapes.leftof": 2872,
+    "shapes.quadrant": 1641,
+    "shapes.quadrant_anyfits": 387,
+    "shapes.total": 3000,
+    "stock_score.q": 3000
+  },
+  "none_fits": 4536
+}

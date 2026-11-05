@@ -64,6 +64,7 @@ for it in pick:
          "top_tokens_at_answer": top_tokens, "label_mass_first_step": round(label_mass, 4),
          "pred_label": st.labels[int(torch.tensor(lps[0]).argmax())],
          "max_abs_diff_cached_vs_full_step0": round(max(abs(x - y) for x, y in zip(lps[0], lp_full)), 4),
+         "tv_cached_vs_full_step0": round(0.5 * float(torch.tensor(lps[0]).exp().sub(torch.tensor(lp_full).exp()).abs().sum()), 5),
          "seconds_full_forward": round(full_s, 1), "seconds_prefix_plus_answer": round(cached_s, 1),
          "seconds_answer_with_cached_prefix": round(reuse_s, 1), "n_prefix_tokens": pre[2]}
     if it.primitive == "box":
