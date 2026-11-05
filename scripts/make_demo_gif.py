@@ -65,16 +65,16 @@ def frame(it, root, probs=None, pred_box=None, title=""):
         truth = 0 if it.answer else 1
     elif it.primitive == "score":
         truth = it.answer
-    bw = W - x0 - 190
+    bw = W - x0 - 120 - 50
     for i, o in enumerate(opts):
-        d.text((x0, y + 2), o[:26], fill=INK, font=font(14))
+        d.text((x0, y + 2), o[:16], fill=INK, font=font(14))
         if probs is not None:
             p = probs[i]
-            d.rectangle([x0 + 175, y + 4, x0 + 175 + bw, y + 18], fill=(236, 235, 232))
-            d.rectangle([x0 + 175, y + 4, x0 + 175 + max(2, int(bw * p)), y + 18], fill=BLUE)
-            d.text((x0 + 180 + bw, y + 3), f"{p:.2f}", fill=INK2, font=font(12))
+            d.rectangle([x0 + 120, y + 4, x0 + 120 + bw, y + 18], fill=(236, 235, 232))
+            d.rectangle([x0 + 120, y + 4, x0 + 120 + max(2, int(bw * p)), y + 18], fill=BLUE)
+            d.text((x0 + 126 + bw, y + 3), f"{p:.2f}", fill=INK2, font=font(12))
         if i == truth:
-            d.text((x0 - 14, y + 2), "✓" if False else "•", fill=GREEN, font=font(16))
+            d.ellipse([x0 - 13, y + 6, x0 - 5, y + 14], fill=GREEN)
         y += 26
     if it.none_fits:
         d.text((x0, y + 4), "No option fits (the correct one was removed).", fill=ORANGE, font=font(13))

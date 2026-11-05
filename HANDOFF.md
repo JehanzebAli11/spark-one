@@ -16,7 +16,7 @@ Living status file, updated after every milestone. Last update: 2026-11-05, clou
 | Real Gemma 4 E2B (`google/gemma-4-E2B-it`, bf16 on CPU) through our HF path: chat template, image processor, prefix-cache backend, all 54 answer labels are single tokens, first-token mass on labels ≈ 0.999 (no thinking token with `enable_thinking=False`) | `runs/smoke_gemma_e2b_cpu.json` |
 | Real Gemma 4 E2B LoRA trainer smoke on CPU: LoRA on 12.1M params, 2 steps, simulated crash, resume from `checkpoint-2`, final adapter saved | `runs/smoke/lora_e2b_cpu.log` |
 | Eval-only: `openai/gpt-4o-mini` via OpenRouter on 300 test items + variants, $0.69 of a $1 cap. Core accuracy 0.764, ECE 0.210 (uncalibrated), option-order agreement 0.690, negation agreement 0.784; Box unsupported (OpenAI ignores assistant prefill, 0 IoU) | `runs/eval-only/gpt-4o-mini/eval/report.md`, `test_preds.cost.json` |
-| Tiny CPU loop (see "Tiny loop" below) | `runs/tiny/RESULTS.md` (pending until the loop finishes) |
+| Tiny CPU loop end to end: tiny teacher (2.1M) → fake vLLM → teacher-score job (30,000 soft labels, all `ok`) → KD student and log-loss-only student (1.0M) → temperatures on val → harness on 9,252 test items + 8,626 variants and on the illusion set → server latency. All three models: core accuracy 0.41–0.42 (choice ≈ chance 0.263, noul 0.62–0.64, score 0.41–0.44), calibrated ECE 0.018–0.025. Under-trained at this compute, not a bug (overfit check passes). | `runs/tiny/RESULTS.md`, `runs/tiny/*/eval/`, `runs/tiny/overfit_check.txt`, `docs/demo_tiny_student.gif` |
 
 ### Done, tested only against fakes / tiny stand-ins
 
@@ -143,13 +143,19 @@ fake vLLM server → teacher-score job writes soft labels → tiny student (1.0M
 KL + log loss, plus a log-loss-only ablation → temperatures on val → harness on test and on the
 illusion set → server latency benchmark → `runs/tiny/RESULTS.md`.
 
-Status: running (teacher training). Results land in `runs/tiny/RESULTS.md`.
+Status: done. Results in `runs/tiny/RESULTS.md` (every number copied from the harness
+`report.json` files). CPU timings: teacher 2,500 steps ≈ 84 min (contended), student ≈ 26 min,
+fake-vLLM teacher scoring 55 items/s, predict ≈ 14 ms/item batched.
+Bug found and fixed on the way: the fake server first spread the tiny teacher's mass over the
+whole answer vocabulary, so all soft labels had coverage < 0.5 and were silently dropped; a
+regression test now guards it. The same failure mode (low coverage → `ok: false` → no KL
+signal) is what to watch with the real 31B teacher: check the `ok` rate before training.
 
 ## Stretch list (kept here; work down it after the core)
 
 - [x] Optical-illusion eval set with exact ground truth (Müller-Lyer, Ebbinghaus; equal cases and truth-against-illusion cases)
 - [x] Demo GIF of the generators (`docs/demo_generators.gif`)
-- [ ] Demo GIF of the tiny student answering (after the loop)
+- [x] Demo GIF of the tiny student answering (`docs/demo_tiny_student.gif`)
 - [x] OpenRouter eval of one cheap model on a small test sample with a hard cap (eval only): gpt-4o-mini, $0.69
 - [x] Ponzo and Delboeuf illusions (illusion set now 2,400 items, 4 types)
 - [ ] More illusions (checker-shadow luminance, Zöllner) and line-chart / pie-chart generators (append-only: existing item ids stay stable)

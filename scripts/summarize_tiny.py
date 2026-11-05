@@ -42,13 +42,23 @@ for m, (desc, rep) in rows.items():
     s = rep["calibrated"]["slices"]
     cell = lambda k: f"acc {f(s[k]['core'].get('accuracy'))} / ECE {f(s[k]['core'].get('ece'))}"
     lines.append(f"| {desc} | {cell('en')} | {cell('ur-roman')} | {cell('text')} | {cell('image')} |")
-lines += ["", "## Optical illusions (eval-only set, 1200 items)", "", "| model | accuracy | ECE cal |", "|---|---|---|"]
+n_ill = sum(1 for _ in open("data/generated/illusions/items.jsonl")) if Path("data/generated/illusions/items.jsonl").exists() else "?"
+lines += ["", f"## Optical illusions (eval-only set, {n_ill} items: Müller-Lyer, Ebbinghaus, Ponzo, Delboeuf)", "",
+          "| model | accuracy | ECE cal |", "|---|---|---|"]
 for m, desc in MODELS:
     p = R / m / "illusions" / "report.json"
     if p.exists():
         c = json.loads(p.read_text())["calibrated"]["overall_core"]
         lines.append(f"| {desc} | {f(c.get('accuracy'))} | {f(c.get('ece'))} |")
-lines += ["", "Chance on the illusion set is 1/3 (three options).", ""]
+lines += ["", "Chance on the illusion set is 1/3 (three options).", "",
+          "## Reading these numbers", "",
+          "At this compute (2,500 steps x 32 items, about one epoch, 1-2M parameters, CPU) the tiny models "
+          "learn priors and a few easy tasks (see each `eval/report.md` by task) but Choice stays near chance. "
+          "This is under-training, not a pipeline bug: the same model overfits 64 Choice items to 100% batch "
+          "accuracy in 100 steps (`runs/tiny/overfit_check.txt`). Calibration works as intended: calibrated "
+          "ECE is 0.02-0.03 even where accuracy is low. The KD and log-loss-only students are within noise of "
+          "each other because the tiny teacher is barely better than chance; distillation becomes meaningful "
+          "with Gemma 4 31B as the teacher.", ""]
 tp = R / "teacher_scores" / "train.jsonl"
 if tp.exists():
     rs = [json.loads(l) for l in tp.read_text().splitlines()]

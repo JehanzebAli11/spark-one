@@ -1,3 +1,236 @@
 30000 items, 0 already scored, 30000 to go
 500/30000 (50.4/s)
 1000/30000 (52.4/s)
+1500/30000 (51.8/s)
+2000/30000 (51.8/s)
+2500/30000 (52.8/s)
+3000/30000 (53.7/s)
+3500/30000 (53.7/s)
+4000/30000 (53.8/s)
+4500/30000 (53.7/s)
+5000/30000 (53.6/s)
+5500/30000 (53.8/s)
+6000/30000 (54.2/s)
+6500/30000 (54.1/s)
+7000/30000 (54.1/s)
+7500/30000 (53.9/s)
+8000/30000 (53.7/s)
+8500/30000 (53.5/s)
+9000/30000 (53.2/s)
+9500/30000 (53.2/s)
+10000/30000 (53.3/s)
+10500/30000 (53.5/s)
+11000/30000 (53.7/s)
+11500/30000 (53.7/s)
+12000/30000 (53.9/s)
+12500/30000 (54.1/s)
+13000/30000 (54.2/s)
+13500/30000 (54.0/s)
+14000/30000 (53.9/s)
+14500/30000 (53.7/s)
+15000/30000 (53.7/s)
+15500/30000 (53.6/s)
+16000/30000 (53.7/s)
+16500/30000 (53.7/s)
+17000/30000 (53.8/s)
+17500/30000 (53.8/s)
+18000/30000 (53.7/s)
+18500/30000 (53.7/s)
+19000/30000 (53.8/s)
+19500/30000 (53.9/s)
+20000/30000 (54.0/s)
+20500/30000 (54.0/s)
+21000/30000 (54.1/s)
+21500/30000 (54.1/s)
+22000/30000 (54.1/s)
+22500/30000 (54.2/s)
+23000/30000 (54.2/s)
+23500/30000 (54.3/s)
+24000/30000 (54.3/s)
+24500/30000 (54.4/s)
+25000/30000 (54.5/s)
+25500/30000 (54.6/s)
+26000/30000 (54.7/s)
+26500/30000 (54.7/s)
+27000/30000 (54.7/s)
+27500/30000 (54.7/s)
+28000/30000 (54.8/s)
+28500/30000 (54.9/s)
+29000/30000 (55.0/s)
+29500/30000 (55.0/s)
+30000/30000 (55.1/s)
+{"scored": 30000, "ok": 30000, "failed": 0, "seconds": 544.9}
+train items 73757, teacher labels 30000, params 994,176
+{'step': 50, 'loss': 1.8671, 'ce': 2.0204, 'kl': 0.0458, 'lr': 0.0003333333333333334, 'elapsed_s': 33.8}
+{'step': 100, 'loss': 2.1141, 'ce': 2.2261, 'kl': 0.0275, 'lr': 0.0006666666666666668, 'elapsed_s': 67.3}
+{'step': 150, 'loss': 1.7669, 'ce': 1.8593, 'kl': 0.1217, 'lr': 0.001, 'elapsed_s': 99.7}
+{'step': 200, 'loss': 1.7599, 'ce': 1.8441, 'kl': 0.0353, 'lr': 0.000998927639302818, 'elapsed_s': 131.5}
+{'step': 250, 'loss': 1.9138, 'ce': 2.0812, 'kl': 0.0416, 'lr': 0.000995627393442518, 'elapsed_s': 162.3}
+{'step': 300, 'loss': 1.1614, 'ce': 1.3754, 'kl': 0.0482, 'lr': 0.0009901135553277232, 'elapsed_s': 194.7}
+{'step': 350, 'loss': 1.6627, 'ce': 1.7575, 'kl': 0.1391, 'lr': 0.000982410751097959, 'elapsed_s': 225.4}
+{'step': 400, 'loss': 1.9293, 'ce': 2.0265, 'kl': 0.0258, 'lr': 0.0009725533833467994, 'elapsed_s': 257.6}
+{'step': 450, 'loss': 1.1276, 'ce': 1.2136, 'kl': 0.0935, 'lr': 0.0009605854774715339, 'elapsed_s': 288.4}
+{'step': 500, 'loss': 1.3447, 'ce': 1.4547, 'kl': 0.02, 'lr': 0.0009465604850450546, 'elapsed_s': 318.1}
+{'step': 550, 'loss': 1.5407, 'ce': 1.748, 'kl': 0.02, 'lr': 0.0009305410450881568, 'elapsed_s': 349.3}
+{'step': 600, 'loss': 1.237, 'ce': 1.3524, 'kl': 0.0092, 'lr': 0.0009125987043084665, 'elapsed_s': 379.1}
+{'step': 650, 'loss': 1.4458, 'ce': 1.6214, 'kl': 0.0232, 'lr': 0.0008928135975554749, 'elapsed_s': 408.1}
+{'step': 700, 'loss': 1.6963, 'ce': 1.8132, 'kl': 0.1476, 'lr': 0.000871274089918849, 'elapsed_s': 437.8}
+{'step': 750, 'loss': 1.6928, 'ce': 1.7592, 'kl': 0.0223, 'lr': 0.0008480763820684887, 'elapsed_s': 466.9}
+{'step': 800, 'loss': 1.1896, 'ce': 1.3458, 'kl': 0.0128, 'lr': 0.0008233240805989832, 'elapsed_s': 495.3}
+{'step': 850, 'loss': 1.7568, 'ce': 1.8828, 'kl': 0.0328, 'lr': 0.0007971277352974077, 'elapsed_s': 524.4}
+{'step': 900, 'loss': 1.6162, 'ce': 1.6999, 'kl': 0.0568, 'lr': 0.0007696043454011388, 'elapsed_s': 554.6}
+{'step': 950, 'loss': 1.6356, 'ce': 1.7209, 'kl': 0.0096, 'lr': 0.0007408768370508576, 'elapsed_s': 585.0}
+{'step': 1000, 'loss': 1.1079, 'ce': 1.2474, 'kl': 0.0064, 'lr': 0.0007110735142725655, 'elapsed_s': 615.3}
+{'step': 1050, 'loss': 1.5996, 'ce': 1.7752, 'kl': 0.0109, 'lr': 0.000680327485940657, 'elapsed_s': 647.3}
+{'step': 1100, 'loss': 1.2584, 'ce': 1.3768, 'kl': 0.0318, 'lr': 0.0006487760712813741, 'elapsed_s': 678.1}
+{'step': 1150, 'loss': 1.1843, 'ce': 1.2789, 'kl': 0.0458, 'lr': 0.0006165601865718076, 'elapsed_s': 708.7}
+{'step': 1200, 'loss': 1.4828, 'ce': 1.5624, 'kl': 0.0196, 'lr': 0.0005838237157735958, 'elapsed_s': 738.6}
+{'step': 1250, 'loss': 1.1119, 'ce': 1.2766, 'kl': 0.0125, 'lr': 0.0005507128679122224, 'elapsed_s': 769.0}
+{'step': 1300, 'loss': 1.0025, 'ce': 1.1381, 'kl': 0.0101, 'lr': 0.0005173755240720172, 'elapsed_s': 797.8}
+{'step': 1350, 'loss': 1.1746, 'ce': 1.3369, 'kl': 0.0096, 'lr': 0.00048396057692333356, 'elapsed_s': 827.7}
+{'step': 1400, 'loss': 1.0381, 'ce': 1.1632, 'kl': 0.0228, 'lr': 0.0004506172657317395, 'elapsed_s': 857.5}
+{'step': 1450, 'loss': 1.2254, 'ce': 1.3532, 'kl': 0.0053, 'lr': 0.00041749450981922863, 'elapsed_s': 887.0}
+{'step': 1500, 'loss': 1.3729, 'ce': 1.4315, 'kl': 0.0115, 'lr': 0.00038474024345437765, 'elapsed_s': 919.4}
+{'step': 1550, 'loss': 1.4175, 'ce': 1.5227, 'kl': 0.0263, 'lr': 0.000352500755141991, 'elapsed_s': 952.5}
+{'step': 1600, 'loss': 1.24, 'ce': 1.3141, 'kl': 0.0143, 'lr': 0.00032092003426312666, 'elapsed_s': 985.0}
+{'step': 1650, 'loss': 1.1999, 'ce': 1.3498, 'kl': 0.0823, 'lr': 0.0002901391279835667, 'elapsed_s': 1019.3}
+{'step': 1700, 'loss': 1.1766, 'ce': 1.3952, 'kl': 0.0089, 'lr': 0.0002602955113029336, 'elapsed_s': 1050.2}
+{'step': 1750, 'loss': 1.1842, 'ce': 1.288, 'kl': 0.0085, 'lr': 0.00023152247305797168, 'elapsed_s': 1079.4}
+{'step': 1800, 'loss': 1.3596, 'ce': 1.5458, 'kl': 0.015, 'lr': 0.00020394852062224407, 'elapsed_s': 1110.8}
+{'step': 1850, 'loss': 0.9441, 'ce': 1.1027, 'kl': 0.0085, 'lr': 0.00017769680596100779, 'elapsed_s': 1139.8}
+{'step': 1900, 'loss': 0.8677, 'ce': 1.0015, 'kl': 0.0081, 'lr': 0.00015288457560464053, 'elapsed_s': 1170.3}
+{'step': 1950, 'loss': 0.8875, 'ce': 1.054, 'kl': 0.0142, 'lr': 0.00012962264699717448, 'elapsed_s': 1202.0}
+{'step': 2000, 'loss': 1.3823, 'ce': 1.5152, 'kl': 0.0055, 'lr': 0.00010801491355868936, 'elapsed_s': 1233.2}
+{'step': 2050, 'loss': 1.3776, 'ce': 1.4498, 'kl': 0.0343, 'lr': 8.81578806720788e-05, 'elapsed_s': 1263.4}
+{'step': 2100, 'loss': 1.3825, 'ce': 1.4817, 'kl': 0.0045, 'lr': 7.014023466658237e-05, 'elapsed_s': 1294.3}
+{'step': 2150, 'loss': 1.0643, 'ce': 1.2181, 'kl': 0.0143, 'lr': 5.404244672311076e-05, 'elapsed_s': 1323.7}
+{'step': 2200, 'loss': 0.9573, 'ce': 1.0894, 'kl': 0.014, 'lr': 3.9936413470417096e-05, 'elapsed_s': 1353.9}
+{'step': 2250, 'loss': 0.7856, 'ce': 1.0158, 'kl': 0.0093, 'lr': 2.788513587729946e-05, 'elapsed_s': 1383.8}
+{'step': 2300, 'loss': 0.6844, 'ce': 0.8328, 'kl': 0.0077, 'lr': 1.79424378749809e-05, 'elapsed_s': 1414.7}
+{'step': 2350, 'loss': 1.4638, 'ce': 1.5348, 'kl': 0.0044, 'lr': 1.0152725966366517e-05, 'elapsed_s': 1444.9}
+{'step': 2400, 'loss': 1.2193, 'ce': 1.3284, 'kl': 0.0726, 'lr': 4.550790895821388e-06, 'elapsed_s': 1474.8}
+{'step': 2450, 'loss': 0.8163, 'ce': 1.0155, 'kl': 0.0113, 'lr': 1.1616522652611038e-06, 'elapsed_s': 1505.1}
+{'step': 2500, 'loss': 1.3583, 'ce': 1.472, 'kl': 0.0103, 'lr': 4.4679053556873074e-10, 'elapsed_s': 1535.4}
+done: runs/tiny/student_kd/final.pt
+wrote 8966 predictions to runs/tiny/teacher/val_preds.jsonl
+wrote 17878 predictions to runs/tiny/teacher/test_preds.jsonl
+{
+  "choice": {
+    "temperature": 21.399999994094948,
+    "n": 3649,
+    "nll_before": 1.3187240244058007,
+    "nll_after": 1.3111632037979946
+  },
+  "noul": {
+    "temperature": 1.0103176623020798,
+    "n": 2551,
+    "nll_before": 0.6060679811494886,
+    "nll_after": 0.6060623274939634
+  },
+  "score": {
+    "temperature": 0.993004587362688,
+    "n": 888,
+    "nll_before": 1.0587038362296655,
+    "nll_after": 1.0587003128653987
+  },
+  "box": {
+    "temperature": 2.537384953683026,
+    "n": 5860,
+    "nll_before": 3.6282178509292637,
+    "nll_after": 2.6826515474654515
+  }
+}
+wrote 2400 predictions to runs/tiny/teacher/illusion_preds.jsonl
+wrote 8966 predictions to runs/tiny/student_kd/val_preds.jsonl
+wrote 17878 predictions to runs/tiny/student_kd/test_preds.jsonl
+{
+  "choice": {
+    "temperature": 21.399999994094948,
+    "n": 3649,
+    "nll_before": 1.3142309984319611,
+    "nll_after": 1.311023880141893
+  },
+  "noul": {
+    "temperature": 0.8804181938496135,
+    "n": 2551,
+    "nll_before": 0.5754751736867942,
+    "nll_after": 0.5745762765941737
+  },
+  "score": {
+    "temperature": 0.9621097491029885,
+    "n": 888,
+    "nll_before": 1.0555907750804492,
+    "nll_after": 1.055478311756446
+  },
+  "box": {
+    "temperature": 1.8992459093341143,
+    "n": 5860,
+    "nll_before": 2.68765828245437,
+    "nll_after": 2.3534442926139216
+  }
+}
+wrote 2400 predictions to runs/tiny/student_kd/illusion_preds.jsonl
+wrote 2400 predictions to runs/tiny/student_ce/illusion_preds.jsonl
+# Server latency: spark-1-tiny
+
+40 requests, each 3-4 questions about one image + state.
+
+| mode | mean ms | p50 ms | p95 ms |
+|---|---|---|---|
+| cold (no prefix cache) | 106.3 | 110.0 | 147.0 |
+| warm (prefix cached) | 84.4 | 85.9 | 122.5 |
+# Tiny CPU loop: results
+
+Randomly initialised byte-level transformers trained on CPU on the procedural bank (`data/generated/bank`, seed 1). These prove the pipeline, not model quality: the tiny teacher stands in for Gemma 4 31B and the students for Gemma 4 E2B. Test split, calibrated with per-primitive temperatures fitted on val. Generated by `scripts/run_tiny_loop.sh`; numbers are copied from each `eval/report.json`.
+
+| model | core acc | ECE raw | ECE cal | Brier cal | log loss cal | choice acc | noul acc | score acc | box mean IoU | order agree | negation agree |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| tiny teacher, 2.1M params, log loss on code labels | 0.414 | 0.029 | 0.018 | 0.602 | 1.029 | 0.263 | 0.623 | 0.428 | 0.026 | 0.053 | 0.261 |
+| tiny student, 1.0M, KL to tiny teacher + log loss | 0.416 | 0.032 | 0.025 | 0.594 | 1.018 | 0.263 | 0.638 | 0.407 | 0.092 | 0.037 | 0.320 |
+| tiny student, 1.0M, log loss only (ablation) | 0.420 | 0.030 | 0.025 | 0.592 | 1.018 | 0.263 | 0.638 | 0.436 | 0.056 | 0.038 | 0.330 |
+
+## Slices (calibrated, choice+noul+score)
+
+| model | en | ur-roman | text | image |
+|---|---|---|---|---|
+| tiny teacher, 2.1M params, log loss on code labels | acc 0.415 / ECE 0.023 | acc 0.413 / ECE 0.022 | acc 0.429 / ECE 0.015 | acc 0.404 / ECE 0.025 |
+| tiny student, 1.0M, KL to tiny teacher + log loss | acc 0.418 / ECE 0.028 | acc 0.415 / ECE 0.024 | acc 0.438 / ECE 0.020 | acc 0.403 / ECE 0.031 |
+| tiny student, 1.0M, log loss only (ablation) | acc 0.414 / ECE 0.033 | acc 0.426 / ECE 0.019 | acc 0.444 / ECE 0.027 | acc 0.405 / ECE 0.028 |
+
+## Optical illusions (eval-only set, 1200 items)
+
+| model | accuracy | ECE cal |
+|---|---|---|
+| tiny teacher, 2.1M params, log loss on code labels | 0.335 | 0.000 |
+| tiny student, 1.0M, KL to tiny teacher + log loss | 0.333 | 0.001 |
+| tiny student, 1.0M, log loss only (ablation) | 0.324 | 0.011 |
+
+Chance on the illusion set is 1/3 (three options).
+
+Teacher-score job: 30000 train items scored through the fake vLLM server, 30000 with label coverage >= 0.5.
+
+## Server latency: spark-1-tiny
+
+40 requests, each 3-4 questions about one image + state.
+
+| mode | mean ms | p50 ms | p95 ms |
+|---|---|---|---|
+| cold (no prefix cache) | 106.3 | 110.0 | 147.0 |
+| warm (prefix cached) | 84.4 | 85.9 | 122.5 |
+
+
+## Figures
+
+- teacher: [reliability_raw.png](teacher/eval/reliability_raw.png)
+- teacher: [reliability_calibrated.png](teacher/eval/reliability_calibrated.png)
+- teacher: [accuracy_vs_coverage.png](teacher/eval/accuracy_vs_coverage.png)
+- teacher: [slices.png](teacher/eval/slices.png)
+- student_kd: [reliability_raw.png](student_kd/eval/reliability_raw.png)
+- student_kd: [reliability_calibrated.png](student_kd/eval/reliability_calibrated.png)
+- student_kd: [accuracy_vs_coverage.png](student_kd/eval/accuracy_vs_coverage.png)
+- student_kd: [slices.png](student_kd/eval/slices.png)
+- student_ce: [reliability_raw.png](student_ce/eval/reliability_raw.png)
+- student_ce: [reliability_calibrated.png](student_ce/eval/reliability_calibrated.png)
+- student_ce: [accuracy_vs_coverage.png](student_ce/eval/accuracy_vs_coverage.png)
+- student_ce: [slices.png](student_ce/eval/slices.png)
+- [training_curves.png](training_curves.png)

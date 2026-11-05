@@ -1,0 +1,9 @@
+Overfit sanity check (2026-11-05, CPU): tiny model d=128, 4 layers, trained on 64 text Choice
+items from the train split, batch 32, AdamW 1e-3, log loss at answer tokens only.
+step loss  batch_acc
+0    1.298 0.3125
+50   0.128 0.96875
+100  0.008 1.0
+399  0.001 1.0
+Conclusion: answer positions, label sets and loss are wired correctly; low test Choice accuracy
+in the 2,500-step runs is under-training.
