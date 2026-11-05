@@ -9,7 +9,7 @@ import random
 
 from .common import NAMES, number_options
 
-VERSION = "1"
+VERSION = "2"  # v2: date_order made reproducible across processes
 WORDS = ["strawberry", "banana", "committee", "bookkeeper", "mississippi", "parallel",
          "assessment", "balloon", "coffee", "pepper", "success", "letter", "referee",
          "karachi", "lahore", "islamabad", "barabar", "khushboo", "intezaar", "mehmaan",
@@ -142,10 +142,11 @@ def compare_decimals(rng: random.Random, lang: str) -> dict:
 
 def date_order(rng: random.Random, lang: str) -> dict:
     base = dt.date(2020, 1, 1)
-    ds = set()
+    ds = []  # a list, not a set: set order of dates depends on PYTHONHASHSEED
     while len(ds) < 3:
-        ds.add(base + dt.timedelta(days=rng.randint(0, 2500)))
-    ds = list(ds)
+        d = base + dt.timedelta(days=rng.randint(0, 2500))
+        if d not in ds:
+            ds.append(d)
     fmts = ["%d %B %Y", "%Y-%m-%d", "%B %d, %Y", "%d/%m/%Y"]
     names = rng.sample(NAMES, 3)
     rows = [f"{n}: {d.strftime(rng.choice(fmts))}" for n, d in zip(names, ds)]

@@ -139,9 +139,9 @@ class HFBackend:
     """Server/predict backend with prefix caching (deep-copied KV cache per question)."""
 
     def __init__(self, model_id: str, adapter: str | None = None, cache_size: int = 64,
-                 use_prefix_cache: bool = True, model=None, processor=None, tok=None):
+                 use_prefix_cache: bool = True, model=None, processor=None, tok=None, dtype=None):
         if model is None:
-            model, processor, tok = load(model_id, adapter)
+            model, processor, tok = load(model_id, adapter, dtype=dtype)
         self.model, self.processor, self.tok = model.eval(), processor, tok
         self.device = next(model.parameters()).device
         self.name = f"spark-1:{Path(adapter).name if adapter else model_id}"

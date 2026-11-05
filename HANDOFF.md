@@ -10,9 +10,9 @@ Living status file, updated after every milestone. Last update: 2026-11-05, clou
 | what | evidence |
 |---|---|
 | Question-bank framework: schema, option shuffling, none-fits + companion Noul, scene-grouped 80/10/10 splits, provenance on every item | `spark_one/bank.py`, `tests/test_bank.py` |
-| 13 procedural generators (8 text tasks EN + Roman Urdu, shape scenes, chat / settings / cart screenshots, bar charts) + 2 illusion generators; exact labels and Box targets | `spark_one/generators/`; sample rows in `data/sample/` |
-| Full bank generated: **91,975 items** (73,757 train / 8,966 val / 9,252 test; 41,754 choice, 26,240 noul, 9,000 score, 14,981 box; 45,955 EN / 46,020 Roman Urdu; 61,920 image items; 4,536 none-fits) and **2,400-item illusion test set** (Müller-Lyer, Ebbinghaus, Ponzo, Delboeuf) | `data/sample/bank_manifest.json`, `data/sample/illusions_manifest.json` (images are not committed; rebuild is deterministic, ~3 min) |
-| Tests: 28 passing (`pytest -q`), ruff clean, CI workflow | `tests/`, `.github/workflows/ci.yml` |
+| 15 procedural generators (8 text tasks EN + Roman Urdu, shape scenes, chat / settings / cart screenshots, bar, line and pie charts) + 4 illusion generators; exact labels and Box targets; reproducible across processes (tested with two `PYTHONHASHSEED`s) | `spark_one/generators/`; sample rows + images in `data/sample/` |
+| Full bank v2 generated: **110,072 items** (88,260 train / 10,796 val / 11,016 test; 46,831 choice, 33,260 noul, 9,000 score, 20,981 box; 54,983 EN / 55,089 Roman Urdu; 80,017 image items; 5,179 none-fits) and **2,400-item illusion test set** (Müller-Lyer, Ebbinghaus, Ponzo, Delboeuf) | `data/sample/bank_manifest.json`, `data/sample/illusions_manifest.json` (images not committed; rebuild ~4 min). The tiny runs used bank v1 (13 generators, 91,975 items, `data/sample/bank_manifest_v1_tiny_runs.json`); v2 only appends line/pie charts and makes `date_order` reproducible (v1 `date_order` depended on PYTHONHASHSEED; its labels were correct). |
+| Tests: 31 passing (`pytest -q`), ruff clean, CI workflow | `tests/`, `.github/workflows/ci.yml` |
 | Real Gemma 4 E2B (`google/gemma-4-E2B-it`, bf16 on CPU) through our HF path: chat template, image processor, prefix-cache backend, all 54 answer labels are single tokens, first-token mass on labels ≈ 0.999 (no thinking token with `enable_thinking=False`) | `runs/smoke_gemma_e2b_cpu.json` |
 | Real Gemma 4 E2B LoRA trainer smoke on CPU: LoRA on 12.1M params, 2 steps, simulated crash, resume from `checkpoint-2`, final adapter saved | `runs/smoke/lora_e2b_cpu.log` |
 | Eval-only: `openai/gpt-4o-mini` via OpenRouter on 300 test items + variants, $0.69 of a $1 cap. Core accuracy 0.764, ECE 0.210 (uncalibrated), option-order agreement 0.690, negation agreement 0.784; Box unsupported (OpenAI ignores assistant prefill, 0 IoU) | `runs/eval-only/gpt-4o-mini/eval/report.md`, `test_preds.cost.json` |
@@ -43,7 +43,7 @@ python3 -m venv .venv && . .venv/bin/activate
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu130
 pip install -e '.[hf,serve,dev]' transformers==5.22.1 peft==0.21.2
 python3 scripts/check_spark.py          # torch.cuda True, transformers 5.22.1, teacher reachable
-pytest -q                               # 28 passed
+pytest -q                               # 31 passed
 ```
 
 Container alternative (ARM64 multi-arch): `docker run --gpus all -it --ipc=host -v ~/lab:/lab -v ~/.cache/huggingface:/root/.cache/huggingface nvcr.io/nvidia/pytorch:<tag>-py3` then `pip install -e '/lab/spark-one[hf,serve,dev]' transformers==5.22.1 peft==0.21.2`. Pick the tag from the DGX Spark playbooks.
@@ -78,9 +78,9 @@ Time estimates are guesses for a GB10 until step 2 measures real throughput.
 | # | step | job file | expected output | estimate |
 |---|---|---|---|---|
 | 0 | env check | `spark-one-00-check.json` | JSON with `cuda: true`, teacher model listed | 1 min |
-| 1 | build bank | `spark-one-01-build-bank.json` | `data/generated/bank/manifest.json` with `n_items: 91975`, `items_sha256` equal to `data/sample/bank_manifest.json` (same Pillow version) | 3–5 min |
+| 1 | build bank | `spark-one-01-build-bank.json` | `data/generated/bank/manifest.json` with `n_items: 110072`, `items_sha256` equal to `data/sample/bank_manifest.json` (same Pillow version) | 3–5 min |
 | 2 | Gemma smoke on GPU | `spark-one-02-smoke-gemma.json` | `runs/smoke_gemma_e2b_gpu.json`: `label_mass_first_step` > 0.95 on every row, `tv_cached_vs_full_step0` < 0.01 | 5 min |
-| 3 | teacher scores, train split | `spark-one-03-teacher-score-train.json` (needs vllm-teacher up) | `runs/teacher/train.jsonl`, ~59k rows, ≥ 95% `ok` | 4–10 h; try `--limit 20000` first |
+| 3 | teacher scores, train split | `spark-one-03-teacher-score-train.json` (needs vllm-teacher up) | `runs/teacher/train.jsonl`, ~70k rows, ≥ 95% `ok` | 4–10 h; try `--limit 20000` first |
 | 4 | teacher scores val/test + teacher eval | `spark-one-04-teacher-score-test.json` | `runs/teacher/eval/report.md` | 1–2 h |
 | 5 | E2B zero-shot baseline | `spark-one-05-e2b-baseline-eval.json` | `runs/gemma-e2b-base/eval/report.md` (3,000 test items + variants) | 1–3 h |
 | 6 | **stop vllm-teacher**, LoRA train | `spark-one-06-e2b-lora-train.json` | `runs/gemma-e2b-lora-v1/checkpoint-*`, `final_adapter/`, falling `ce` in `train_log.jsonl` | 3–6 h (3000 steps × 16 items) |
@@ -159,7 +159,8 @@ signal) is what to watch with the real 31B teacher: check the `ok` rate before t
 - [x] Demo GIF of the tiny student answering (`docs/demo_tiny_student.gif`)
 - [x] OpenRouter eval of one cheap model on a small test sample with a hard cap (eval only): gpt-4o-mini, $0.69
 - [x] Ponzo and Delboeuf illusions (illusion set now 2,400 items, 4 types)
-- [ ] More illusions (checker-shadow luminance, Zöllner) and line-chart / pie-chart generators (append-only: existing item ids stay stable)
+- [x] Line-chart and pie-chart generators (bank v2)
+- [ ] More illusions (checker-shadow luminance, Zöllner)
 - [ ] Generator param for 2× render resolution
 - [ ] Hard-negative Box items (two similar targets) and multi-image states
 - [ ] Per-task temperature (vs per-primitive) and a comparison in the harness

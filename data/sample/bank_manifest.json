@@ -1,11 +1,11 @@
 {
   "spark_one_version": "0.1.0",
-  "created_unix": 1793862560,
+  "created_unix": 1793874092,
   "seed": 1,
   "n_per_task_per_lang": 1500,
   "generators": {
     "count_letter": {
-      "version": "1",
+      "version": "2",
       "langs": [
         "en",
         "ur-roman"
@@ -13,7 +13,7 @@
       "n_items": 3733
     },
     "compare_people": {
-      "version": "1",
+      "version": "2",
       "langs": [
         "en",
         "ur-roman"
@@ -21,7 +21,7 @@
       "n_items": 5424
     },
     "day_after": {
-      "version": "1",
+      "version": "2",
       "langs": [
         "en",
         "ur-roman"
@@ -29,7 +29,7 @@
       "n_items": 3726
     },
     "count_list": {
-      "version": "1",
+      "version": "2",
       "langs": [
         "en",
         "ur-roman"
@@ -37,7 +37,7 @@
       "n_items": 3733
     },
     "stock_score": {
-      "version": "1",
+      "version": "2",
       "langs": [
         "en",
         "ur-roman"
@@ -45,7 +45,7 @@
       "n_items": 3000
     },
     "compare_decimals": {
-      "version": "1",
+      "version": "2",
       "langs": [
         "en",
         "ur-roman"
@@ -53,7 +53,7 @@
       "n_items": 3000
     },
     "date_order": {
-      "version": "1",
+      "version": "2",
       "langs": [
         "en",
         "ur-roman"
@@ -61,7 +61,7 @@
       "n_items": 3688
     },
     "arithmetic": {
-      "version": "1",
+      "version": "2",
       "langs": [
         "en",
         "ur-roman"
@@ -100,6 +100,22 @@
       ],
       "n_items": 11648
     },
+    "line_chart": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 8595
+    },
+    "pie_chart": {
+      "version": "1",
+      "langs": [
+        "en",
+        "ur-roman"
+      ],
+      "n_items": 9502
+    },
     "shapes": {
       "version": "1",
       "langs": [
@@ -111,26 +127,26 @@
   },
   "pillow": "12.3.0",
   "python": "3.13.18",
-  "items_sha256": "a12e3ddeb6d27fb7e7ab72255bce615fe3ec103f8477e4ca8bb3baecd757dee4",
-  "n_items": 91975,
+  "items_sha256": "47d7b4c785677c9a19bf414e3f7e65c918c5f8ad8fed33e09c1a2bef6df4c9db",
+  "n_items": 110072,
   "by_split": {
-    "val": 8966,
-    "train": 73757,
-    "test": 9252
+    "val": 10796,
+    "train": 88260,
+    "test": 11016
   },
   "by_primitive": {
-    "choice": 41754,
-    "noul": 26240,
+    "choice": 46831,
+    "noul": 33260,
     "score": 9000,
-    "box": 14981
+    "box": 20981
   },
   "by_lang": {
-    "en": 45955,
-    "ur-roman": 46020
+    "en": 54983,
+    "ur-roman": 55089
   },
   "by_modality": {
     "text": 30055,
-    "image": 61920
+    "image": 80017
   },
   "by_task": {
     "arithmetic.q": 3000,
@@ -161,6 +177,14 @@
     "date_order.q_anyfits": 688,
     "day_after.q": 3000,
     "day_after.q_anyfits": 726,
+    "line_chart.box": 3000,
+    "line_chart.peak": 2077,
+    "line_chart.peak_anyfits": 518,
+    "line_chart.up": 3000,
+    "pie_chart.box": 3000,
+    "pie_chart.half": 2791,
+    "pie_chart.largest": 3000,
+    "pie_chart.largest_anyfits": 711,
     "settings.box_button": 3000,
     "settings.box_toggle": 3000,
     "settings.count_on": 3000,
@@ -179,5 +203,5 @@
     "shapes.total": 3000,
     "stock_score.q": 3000
   },
-  "none_fits": 4536
+  "none_fits": 5179
 }

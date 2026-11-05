@@ -116,3 +116,22 @@ def test_line_and_pie_labels():
         assert abs(sum(sl.values()) - 1) < 1e-3
         big = max(sl, key=sl.get)
         assert s["questions"][0]["answer"] == big
+
+
+def test_generators_reproducible_across_processes(tmp_path):
+    """Items must not depend on PYTHONHASHSEED (set/dict-of-hash ordering)."""
+    import os
+    import subprocess
+    import sys
+
+    code = ("import json,sys;from spark_one.bank import build_task_items;from spark_one.generators import REGISTRY, ILLUSIONS\n"
+            "out=[]\n"
+            "for n,(f,v,l) in {**REGISTRY, **ILLUSIONS}.items():\n"
+            "    out += [i.to_dict() for i in build_task_items(n,f,v,l,4,5,None if False else __import__('pathlib').Path(sys.argv[1]))]\n"
+            "print(json.dumps(out, sort_keys=True))")
+    outs = []
+    for seed in ("1", "2"):
+        env = dict(os.environ, PYTHONHASHSEED=seed)
+        r = subprocess.run([sys.executable, "-c", code, str(tmp_path / seed)], capture_output=True, text=True, env=env, check=True)
+        outs.append(r.stdout)
+    assert outs[0] == outs[1]

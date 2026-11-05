@@ -43,7 +43,7 @@ hard cost cap.
 | path | what |
 |---|---|
 | `spark_one/schema.py`, `bank.py` | item schema, option shuffling, "none fits" cases with companion Nouls, scene-grouped splits, provenance |
-| `spark_one/generators/` | text tasks in English and Roman Urdu, shape scenes, chat / settings / cart screenshots, bar charts, Box targets, optical illusions (eval only) |
+| `spark_one/generators/` | text tasks in English and Roman Urdu, shape scenes, chat / settings / cart screenshots, bar / line / pie charts, Box targets, optical illusions (eval only) |
 | `spark_one/steps.py`, `prompt.py` | every primitive as categorical answer steps; one prompt format for all models |
 | `spark_one/teacher/` | teacher-score job (vLLM logprobs → soft labels), fake vLLM server for tests |
 | `spark_one/train/` | the shared answer-token loss and the Gemma 4 E2B LoRA trainer (checkpoint + resume) |
@@ -60,7 +60,7 @@ hard cost cap.
 ```bash
 pip install --index-url https://download.pytorch.org/whl/cpu torch
 pip install -e '.[dev]'
-python -m spark_one.build --out data/generated/bank --n 1500 --seed 1     # ~3 min, ~92k items
+python -m spark_one.build --out data/generated/bank --n 1500 --seed 1     # ~4 min, 110k items
 pytest -q
 bash scripts/run_tiny_loop.sh                                             # tiny teacher -> students -> eval
 ```
