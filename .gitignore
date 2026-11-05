@@ -8,6 +8,7 @@ runs/*
 !runs/tiny/
 !runs/smoke/
 !runs/eval-only/
+!runs/gemma-e2b-base-cpu/
 runs/tiny/**/checkpoint-*/
 runs/tiny/**/*.pt
 runs/tiny/**/*preds*.jsonl

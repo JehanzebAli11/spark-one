@@ -268,8 +268,10 @@ def main(argv=None):
     ap.add_argument("--out", required=True)
     ap.add_argument("--name", default="model")
     ap.add_argument("--no-figures", action="store_true")
+    ap.add_argument("--exclude-generators", nargs="*", default=[])
     a = ap.parse_args(argv)
-    items = {it.id: it for it in load_items(Path(a.bank) / "items.jsonl")}
+    items = {it.id: it for it in load_items(Path(a.bank) / "items.jsonl")
+             if it.provenance["generator"] not in a.exclude_generators}
     preds = list(read_jsonl(a.preds))
     temps = json.loads(Path(a.temps).read_text()) if a.temps else {}
     rep_raw, rows_raw = evaluate(items, preds, None)
