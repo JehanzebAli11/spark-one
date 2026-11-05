@@ -85,7 +85,15 @@ On the DGX Spark the same commands run against Gemma 4; see `HANDOFF.md`.
 
 ## Results
 
-The CPU run uses tiny models to prove the pipeline end to end; it says nothing about how
+Measured in the cloud session (small samples, indicative only; full reports linked):
+
+| model | items | accuracy | ECE raw → calibrated | option-order agreement | negation agreement |
+|---|---|---|---|---|---|
+| Gemma 4 E2B zero-shot, CPU bf16 ([report](runs/gemma-e2b-base-cpu/eval/report.md)) | 133 test | 0.564 | 0.399 → 0.129 | 0.541 | 0.160 |
+| openai/gpt-4o-mini, eval only ([report](runs/eval-only/gpt-4o-mini/eval/report.md)) | 237 test | 0.764 | 0.210 (no val run) | 0.690 | 0.784 |
+
+The base model is overconfident and inconsistent under option reordering and negation; that is
+what Spark-1 training targets. The CPU run uses tiny models to prove the pipeline end to end; it says nothing about how
 good Gemma-based Spark-1 will be. Its numbers live in [`runs/tiny/RESULTS.md`](runs/tiny/RESULTS.md),
 generated from the harness reports. Gemma results will land in `runs/` from the Spark jobs.
 
