@@ -1,0 +1,15 @@
+{
+  "_doc": "Tiny CPU 'teacher' trained on code labels only. It stands in for Gemma 4 31B so the teacher-score job and distillation can be proven end to end on CPU.",
+  "bank": "data/generated/bank",
+  "run_dir": "runs/tiny/teacher",
+  "steps": 2500,
+  "batch_size": 32,
+  "lr": 0.001,
+  "warmup": 150,
+  "alpha": 0.0,
+  "log_every": 50,
+  "ckpt_every": 250,
+  "threads": 3,
+  "seed": 1,
+  "model": {"d_model": 192, "n_layers": 4, "n_heads": 6}
+}

@@ -1,0 +1,16 @@
+{
+  "_doc": "Tiny CPU student: KL to tiny-teacher soft labels (alpha) + log loss on ground truth.",
+  "bank": "data/generated/bank",
+  "run_dir": "runs/tiny/student_kd",
+  "teacher": "runs/tiny/teacher_scores/train.jsonl",
+  "steps": 2500,
+  "batch_size": 32,
+  "lr": 0.001,
+  "warmup": 150,
+  "alpha": 0.5,
+  "log_every": 50,
+  "ckpt_every": 250,
+  "threads": 3,
+  "seed": 2,
+  "model": {"d_model": 128, "n_layers": 4, "n_heads": 4}
+}

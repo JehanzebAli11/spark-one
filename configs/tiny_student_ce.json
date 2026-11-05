@@ -1,0 +1,19 @@
+{
+  "_doc": "Ablation: same student, ground-truth log loss only (no teacher).",
+  "bank": "data/generated/bank",
+  "run_dir": "runs/tiny/student_ce",
+  "steps": 2500,
+  "batch_size": 32,
+  "lr": 0.001,
+  "warmup": 150,
+  "alpha": 0.0,
+  "log_every": 50,
+  "ckpt_every": 250,
+  "threads": 3,
+  "seed": 2,
+  "model": {
+    "d_model": 128,
+    "n_layers": 4,
+    "n_heads": 4
+  }
+}
