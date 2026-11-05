@@ -86,6 +86,23 @@ class CannedScorer:
         return [(t, math.log(p)) for t, p in dist.items()]
 
 
+def prompt_labels(text: str, prefix: str) -> list[str] | None:
+    """Recover the step's label set from a Spark-1 prompt."""
+    from ..steps import BIN_LABELS, LETTERS, NOUL_LABELS
+
+    if "Reply as: top=" in text:
+        return list(BIN_LABELS)
+    if "Reply with only Yes or No." in text:
+        return list(NOUL_LABELS)
+    if "Reply with only the level number." in text:
+        n = len(re.findall(r"^\d+\. ", text.split("Levels:")[-1], flags=re.M))
+        return [str(i) for i in range(n)]
+    if "Reply with only the letter" in text:
+        n = len(re.findall(r"^[A-J]\. ", text.split("Options:")[-1], flags=re.M))
+        return list(LETTERS[:n])
+    return None
+
+
 class TinyModelScorer:
     """Serves a trained tiny model: first-token distribution over its answer vocabulary."""
 
@@ -118,9 +135,12 @@ class TinyModelScorer:
             images = t.from_numpy(np.array(im)).permute(2, 0, 1)[None].float() / 255.0
         with t.no_grad():
             logits, _ = self.model(t.tensor([ids]), images)
-        sub = logits[0, -1, list(ANSWER_IDS)]
-        logp = t.log_softmax(sub, -1).tolist()
-        return [(ID_LABEL[i], lp) for i, lp in zip(ANSWER_IDS, logp)]
+        # The tiny model was trained with a softmax over each step's own labels, so serve it the
+        # same way: restrict to the labels the prompt asks for (a real LLM answering in format).
+        labels = prompt_labels(text, prefix)
+        ids_ = [label_id(l) for l in labels] if labels else list(ANSWER_IDS)
+        logp = t.log_softmax(logits[0, -1, ids_], -1).tolist()
+        return [(ID_LABEL[i], lp) for i, lp in zip(ids_, logp)]
 
 
 def main(argv=None):

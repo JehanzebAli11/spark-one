@@ -70,3 +70,26 @@ def test_score_job_against_fake_server(small_bank, tmp_path):
         assert stats2["scored"] == 0
     finally:
         server.should_exit = True
+
+
+def test_tiny_scorer_answers_in_format(small_bank, tiny_ckpt, tmp_path):
+    """Regression: the tiny teacher must put its mass on the step labels (coverage ~1),
+    otherwise every soft label is dropped as ok=false and distillation silently does nothing."""
+    from spark_one.prompt import build_prompt
+    from spark_one.steps import item_steps
+    from spark_one.teacher.fake_vllm import TinyModelScorer, prompt_labels
+
+    items = load_items(small_bank / "items.jsonl")
+    for it in items[:80]:
+        assert tuple(prompt_labels(build_prompt(it).text, "")) == item_steps(it)[0].labels
+    server, url = _serve(make_app(TinyModelScorer(tiny_ckpt, threads=1)))
+    try:
+        out = tmp_path / "tiny.jsonl"
+        args = Namespace(bank=str(small_bank), split="train", out=str(out), base_url=url, model="tiny",
+                         concurrency=2, timeout=10, limit=20, primitives=["choice", "noul", "score"],
+                         min_coverage=0.5, top_logprobs=20)
+        __import__("asyncio").run(run(args))
+        rows = list(read_jsonl(out))
+        assert rows and all(r["ok"] for r in rows)
+    finally:
+        server.should_exit = True

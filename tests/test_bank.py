@@ -97,3 +97,22 @@ def test_illusions_have_exact_truth(tmp_path):
                 assert p["truth"] == "equal"
             assert p["truth"] in ("equal", "a", "b")
             assert it.answer in keys
+
+
+def test_line_and_pie_labels():
+    from spark_one.generators.charts2 import line_chart_scene, pie_chart_scene
+
+    for seed in range(40):
+        s = line_chart_scene(random.Random(seed), "en")
+        v, cats = s["params"]["values"], s["params"]["categories"]
+        for q in s["questions"]:
+            if q["q"] == "peak":
+                assert v[cats.index(q["answer"])] == max(v)
+            if q["q"] == "up":
+                a, b = [c for c in cats if c in q["instructions"]][:2]
+                assert q["answer"] == (v[cats.index(b)] > v[cats.index(a)])
+        s = pie_chart_scene(random.Random(seed), "en")
+        sl = s["params"]["slices"]
+        assert abs(sum(sl.values()) - 1) < 1e-3
+        big = max(sl, key=sl.get)
+        assert s["questions"][0]["answer"] == big

@@ -22,11 +22,14 @@ fi
 [[ -f $R/student_kd/final.pt ]] || python -m spark_one.tiny.train --config configs/tiny_student.json
 [[ -f $R/student_ce/final.pt ]] || python -m spark_one.tiny.train --config configs/tiny_student_ce.json
 for m in teacher student_kd student_ce; do
+  if [[ -f $R/$m/eval/report.json && -f $R/$m/illusions/report.json ]]; then continue; fi
   name=$(case $m in teacher) echo "tiny teacher (2.1M, code labels)";; student_kd) echo "tiny student (1.0M, KL+log loss)";; student_ce) echo "tiny student (1.0M, log loss only)";; esac)
+  if [[ ! -f $R/$m/eval/report.json ]]; then
   python -m spark_one.tiny.predict --ckpt $R/$m/final.pt --bank $BANK --split val --out $R/$m/val_preds.jsonl --no-variants
   python -m spark_one.tiny.predict --ckpt $R/$m/final.pt --bank $BANK --split test --out $R/$m/test_preds.jsonl
   python -m spark_one.calibrate --bank $BANK --preds $R/$m/val_preds.jsonl --out $R/$m/temps.json
   python -m spark_one.eval.harness --bank $BANK --preds $R/$m/test_preds.jsonl --temps $R/$m/temps.json --out $R/$m/eval --name "$name" > /dev/null
+  fi
   python -m spark_one.tiny.predict --ckpt $R/$m/final.pt --bank data/generated/illusions --split test --out $R/$m/illusion_preds.jsonl --no-variants
   python -m spark_one.eval.harness --bank data/generated/illusions --preds $R/$m/illusion_preds.jsonl --temps $R/$m/temps.json --out $R/$m/illusions --name "$name on illusions" > /dev/null
 done
