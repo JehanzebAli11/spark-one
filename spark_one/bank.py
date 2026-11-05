@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import platform
 import random
 import time
@@ -92,7 +93,9 @@ def build_task_items(name: str, fn: GeneratorFn, version: str, langs: Iterable[s
                 image_rel = f"{rel_img_prefix}/{name}/{group}.png"
                 path = img_dir / name / f"{group}.png"
                 path.parent.mkdir(parents=True, exist_ok=True)
-                scene["image"].save(path, optimize=False)
+                tmp = path.with_suffix(".tmp.png")
+                scene["image"].save(tmp, optimize=False)
+                os.replace(tmp, path)  # atomic: readers never see a half-written image
             for q in scene["questions"]:
                 prov = {
                     "generator": name, "version": version, "seed": seed, "index": idx,

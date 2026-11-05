@@ -1,0 +1,19 @@
+{
+  "_doc": "Stretch: same 1.0M student, log loss only, 12k steps (~5 epochs) to test whether more compute moves it past priors.",
+  "bank": "data/generated/bank",
+  "run_dir": "runs/tiny/student_long",
+  "steps": 12000,
+  "batch_size": 32,
+  "lr": 0.001,
+  "warmup": 300,
+  "alpha": 0.0,
+  "log_every": 50,
+  "ckpt_every": 500,
+  "threads": 4,
+  "seed": 2,
+  "model": {
+    "d_model": 128,
+    "n_layers": 4,
+    "n_heads": 4
+  }
+}

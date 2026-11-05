@@ -37,8 +37,9 @@ Living status file, updated after every milestone. Last update: 2026-11-05, clou
 ```bash
 cd ~/lab && git clone git@github.com:JehanzebAli11/spark-one.git && cd spark-one
 python3 -m venv .venv && . .venv/bin/activate
-# PyTorch for ARM64 + CUDA (DGX Spark / GB10). If the cu130 index has no aarch64 wheel for your
-# driver, use the NGC container instead (below).
+# PyTorch for ARM64 + CUDA (DGX Spark / GB10). Checked 2026-11-05: the cu130 index has
+# torch 2.14.1 and torchvision 0.29.1 aarch64 wheels for cp312; cu132 has torch 2.15.0.
+# Match the CUDA version to `nvidia-smi`; otherwise use the NGC container (below).
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu130
 pip install -e '.[hf,serve,dev]' transformers==5.22.1 peft==0.21.2
 python3 scripts/check_spark.py          # torch.cuda True, transformers 5.22.1, teacher reachable
